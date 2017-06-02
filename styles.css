@@ -1,0 +1,117 @@
+body {
+    background: mediumpurple;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    min-width: 1000px
+}
+.see-container {
+    width: 22%;
+    margin: 0 3% 0 0;
+    float: left;
+}
+#login {
+    width: 200px;
+    margin: 10% auto;
+    padding: 10%;
+    background: #fff;
+    border: 5px solid purple;
+    font-size: 42px;
+    cursor: pointer;
+    text-decoration: underline;
+
+    display: none;
+}
+#login:hover {
+    background: purple;
+    color: white;
+    border-color: orchid;
+}
+#seelects {
+    display: none;
+}
+
+/* seelect */
+
+.seelect-container {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.seelect-container > * {
+    display: none;
+}
+.seelect-container.active > * {
+    display: block;
+}
+.seelect-container .seelect-selected {
+    display: block;
+    width: 100%;
+    margin: 0 10px 0 0;
+    min-height: 25px;
+    height: auto;
+}
+.seelect-container .seelect-selected > div{
+    margin-right: 30px;
+}
+.seelect-container .seelect-selected .seelected-item {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 2px 5px 2px 0;
+    background: purple;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+.seelect-container .seelect-selected .seelected-item:hover {
+    background: orchid;
+}
+.seelect-container .seelect-input {
+    box-sizing: border-box;
+    margin: 5px 0 0 0;
+    border-radius: 5px;
+    border: none;
+    background: #eee;
+    line-height: 30px;
+    font-size: 24px;
+    padding: 5px 10px;
+    width: 100%;
+}
+.seelect-container .seelect-dd {
+    position: absolute;
+    margin-top: 10px;
+    background: white;
+    padding: 10px;
+    max-height: 30%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 5px solid purple;
+}
+.seelect-container .seelect-dd li{
+    margin: 0 0 4px 0;
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    list-style: none;
+}
+.seelect-container .seelect-dd li.with-icon{
+    background-repeat: no-repeat;
+    background-position: 10px 50%;
+    min-width: 120px;
+    min-height: 100px;
+    padding-left: 120px;
+    padding-top: 10px;
+}
+
+.seelect-container .seelect-dd li.selected {
+    background-color: #ddd;
+    color: purple;
+}
+
+.seelect-container .seelect-dd li:hover {
+    background-color: purple ;
+    color: white;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "seelect",
+  "version": "1.0.0",
+  "description": "Multiselect component",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --port 80 --hot --inline",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "./node_modules/.bin/webpack --config webpack.config.js"
+  },
+  "keywords": [
+    "select",
+    "multiselect",
+    "es6"
+  ],
+  "author": "Ilya Litmanovich",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-es2015-ie": "^6.7.0",
+    "webpack": "^2.6.0",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {}
+}
