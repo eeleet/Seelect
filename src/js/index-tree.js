@@ -2,6 +2,15 @@ export default class IndexTree {
     constructor(data) {
         this.data = data;
         this.tree = {};
+
+        this.dictionary = [
+            ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'],
+            ['А', 'B', 'V', 'G', 'D', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', 'IE', 'Y', 'Ь', 'E', 'IU', 'IA'],
+            ['f', ',', 'd', 'u', 'l', 't', ';', 'p', 'b', 'q', 'r', 'k', 'v', 'y', 'j', 'g', 'h', 'c', 'n', 'e', 'a', '[', 'w', 'x', 'i', 'o', ']', 's', 'm', '\'', '.', 'z'],
+            ['F', '<', 'D', 'U', 'L', 'T', ':', 'P', 'B', 'Q', 'R', 'K', 'V', 'Y', 'J', 'G', 'H', 'C', 'N', 'E', 'A', '{', 'W', 'X', 'I', 'O', '}', 'S', 'M', '\"', '>', 'Z'],
+            ['Ф', 'И', 'М', 'П', 'В', 'У', 'ЯР', 'Я', 'Ш', 'Ш', 'Л', 'Д', 'Ь', 'Т', 'Щ', 'З', 'К', 'Ы', 'Е', 'Г', 'А', 'ЛР', 'ЕЫ', 'СР', 'ЫР', 'ЫРСР', 'ШЕ', 'Н', 'Ь', 'У', 'ШГ', 'ШФ'],
+        ]
+        
         this.init();
     }
 
@@ -23,7 +32,7 @@ export default class IndexTree {
             return null;
         }
 
-        const cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', ' К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+        const cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
         const lat = ['А', 'B', 'V', 'G', 'D', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', 'IE', 'Y', 'Ь', 'E', 'IU', 'IA'];
 
         const indexOfCyrChar = cyr.indexOf(char.toUpperCase());
@@ -48,7 +57,7 @@ export default class IndexTree {
         const wrongCyrCaps = ['F','<','D','U','L','T',':','P','B','Q','R','K','V','Y','J','G','H','C','N','E','A','{','W','X','I','O','}','S','M','\"','>','Z'];
         const wrongLat = ['Ф', 'И', 'М', 'П', 'В', 'У', 'ЯР', 'Я', 'Ш', 'Ш', 'Л', 'Д', 'Ь', 'Т', 'Щ', 'З', 'К', 'Ы', 'Е', 'Г', 'А', 'ЛР', 'ЕЫ', 'СР', 'ЫР', 'ЫРСР', 'ШЕ', 'Н', 'Ь', 'У', 'ШГ', 'ШФ'];
         const lat = ['А', 'B', 'V', 'G', 'D', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', 'IE', 'Y', 'Ь', 'E', 'IU', 'IA'];
-        const cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', ' К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+        const cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
 
         let index = -1;
         index = wrongCyr.indexOf(char);
@@ -66,12 +75,10 @@ export default class IndexTree {
         return result;
     }
 
-
-
-    getIndicies(string) {
+    getIndices(string) {
         let stringAsArray = string.split(''); //todo: fix for different cases
         const tree = this.tree;
-        function getIndiciesFor(fn) {
+        function getIndicesFor(fn) {
             let depth = 0;
             let subtree = tree;
             while(depth < stringAsArray.length) {
@@ -84,14 +91,14 @@ export default class IndexTree {
                 }
             }
 
-            return subtree.indicies;
+            return subtree.indices;
         }
 
-        const indicies = getIndiciesFor(this._GOSTCyr2Lat);
-        const indicies2 = getIndiciesFor(this._wrongKeyboard);
+        const indices = getIndicesFor(this._GOSTCyr2Lat);
+        const indices2 = getIndicesFor(this._wrongKeyboard);
 
-        const composedIndicies = indicies.concat(indicies2);
-        return composedIndicies;
+        const composedIndices = indices.concat(indices2);
+        return composedIndices;
 
     }
 
@@ -100,11 +107,11 @@ export default class IndexTree {
         function attachSprout(branch, sprout) { // sprout: {code: int, index: int}
             if (!branch.hasOwnProperty(sprout.code)) {
                 branch[sprout.code] = {
-                    indicies: [sprout.index]
+                    indices: [sprout.index]
                 }
             }
-            else if (branch[sprout.code].indicies.indexOf(sprout.index) < 0) {
-                branch[sprout.code].indicies.push(sprout.index);
+            else if (branch[sprout.code].indices.indexOf(sprout.index) < 0) {
+                branch[sprout.code].indices.push(sprout.index);
             }
             return branch[sprout.code];
         }
@@ -114,7 +121,7 @@ export default class IndexTree {
             const wrongCyrCaps = ['F','<','D','U','L','T',':','P','B','Q','R','K','V','Y','J','G','H','C','N','E','A','{','W','X','I','O','}','S','M','\"','>','Z'];
             const wrongLat = ['Ф', 'И', 'М', 'П', 'В', 'У', 'ЯР', 'Я', 'Ш', 'Ш', 'Л', 'Д', 'Ь', 'Т', 'Щ', 'З', 'К', 'Ы', 'Е', 'Г', 'А', 'ЛР', 'ЕЫ', 'СР', 'ЫР', 'ЫРСР', 'ШЕ', 'Н', 'Ь', 'У', 'ШГ', 'ШФ'];
             const lat = ['А', 'B', 'V', 'G', 'D', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', 'IE', 'Y', 'Ь', 'E', 'IU', 'IA'];
-            const cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', ' К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+            const cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
 
             let sproutCodes = [];
 

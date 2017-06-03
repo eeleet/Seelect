@@ -10,6 +10,13 @@ body {
     margin: 0 3% 0 0;
     float: left;
 }
+#credits {
+    text-align: right;
+    padding: 10px 50px;
+}
+#credits a {
+    color: white;
+}
 #login {
     width: 200px;
     margin: 10% auto;

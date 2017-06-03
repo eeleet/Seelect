@@ -100,7 +100,7 @@ export default class Seelect {
             this.data.push(el);
         });
 
-        // building tree of indicies for data
+        // building tree of indices for data
         this.indexTree = new IndexTree(this.data);
 
         if(this.settings.debug) {
@@ -146,7 +146,7 @@ export default class Seelect {
         let cont = this.selectElement.parentNode.querySelector('.seelect-container .seelect-dd');
         let lis = cont.getElementsByTagName('li');
         for(let i = 0; i < lis.length; i++) {
-            if(this.indicies.indexOf(i) >= 0 || !this.indicies.length) {
+            if(this.indices.indexOf(i) >= 0 || !this.indices.length) {
                 lis[i].style.display = 'block';
             } else {
                 lis[i].style.display = 'none';
@@ -165,14 +165,14 @@ export default class Seelect {
 
             this.inputValue = evt.target.value;
             if(this.inputValue === '') {
-                this.indicies = [];
+                this.indices = [];
             } else {
-                this.indicies = this.indexTree.getIndicies(this.inputValue);
+                this.indices = this.indexTree.getIndices(this.inputValue);
             }
 
             this._autocomplete();
 
-            if(this.settings.onNotFound && this.inputValue !== '' && this.indicies.length === 0) {
+            if(this.settings.onNotFound && this.inputValue !== '' && this.indices.length === 0) {
                 let ts = Date.now(); //todo: change on Promise, and cancel promise on new search request
                 this.settings.onNotFound(this, ts);
             }

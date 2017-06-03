@@ -154,20 +154,30 @@ var App = function () {
     }
 
     App.prototype.init = function init() {
+        var _this = this;
+
         console.log('Seelect demo app start');
 
         this.utils = _utils2.default;
 
-        document.querySelector('#login').addEventListener('click', function (evt) {
-            window.location.href = 'https://oauth.vk.com/authorize?client_id=6057159&display=page&redirect_uri=http://' + window.location.host + '&scope=friends&response_type=token&v=5.64';
-        });
+        VK.init({ apiId: 6057159 });
 
-        if (window.location.href.split('#access_token=').length === 2) {
-            // user is logged in
+        this.showLogin();
+
+        document.querySelector('#login').addEventListener('click', function (evt) {
+
+            VK.Auth.login(function () {
+                _this.afterLogin();
+            });
+            //window.location.href = 'https://oauth.vk.com/authorize?client_id=6057159&display=page&redirect_uri=http://' + window.location.host + '&scope=friends&response_type=token&v=5.64';
+        });
+        /*
+        if(window.location.href.split('#access_token=').length === 2) { // user is logged in
             this.afterLogin();
         } else {
             this.showLogin();
         }
+        */
     };
 
     App.prototype.showLogin = function showLogin() {
@@ -175,7 +185,7 @@ var App = function () {
     };
 
     App.prototype.afterLogin = function afterLogin() {
-        var _this = this;
+        var _this2 = this;
 
         document.querySelector('#login').style.display = 'none';
         document.querySelector('#seelects').style.display = 'block';
@@ -185,7 +195,7 @@ var App = function () {
 
             if (el.id == 'withVKSearch') {
                 // set vk search for specific seelect
-                config.onNotFound = _this.fetchData;
+                config.onNotFound = _this2.fetchData;
             }
 
             new _seelect2.default(config);
@@ -244,6 +254,9 @@ var IndexTree = function () {
 
         this.data = data;
         this.tree = {};
+
+        this.dictionary = [['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'], ['А', 'B', 'V', 'G', 'D', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', 'IE', 'Y', 'Ь', 'E', 'IU', 'IA'], ['f', ',', 'd', 'u', 'l', 't', ';', 'p', 'b', 'q', 'r', 'k', 'v', 'y', 'j', 'g', 'h', 'c', 'n', 'e', 'a', '[', 'w', 'x', 'i', 'o', ']', 's', 'm', '\'', '.', 'z'], ['F', '<', 'D', 'U', 'L', 'T', ':', 'P', 'B', 'Q', 'R', 'K', 'V', 'Y', 'J', 'G', 'H', 'C', 'N', 'E', 'A', '{', 'W', 'X', 'I', 'O', '}', 'S', 'M', '\"', '>', 'Z'], ['Ф', 'И', 'М', 'П', 'В', 'У', 'ЯР', 'Я', 'Ш', 'Ш', 'Л', 'Д', 'Ь', 'Т', 'Щ', 'З', 'К', 'Ы', 'Е', 'Г', 'А', 'ЛР', 'ЕЫ', 'СР', 'ЫР', 'ЫРСР', 'ШЕ', 'Н', 'Ь', 'У', 'ШГ', 'ШФ']];
+
         this.init();
     }
 
@@ -265,7 +278,7 @@ var IndexTree = function () {
             return null;
         }
 
-        var cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', ' К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+        var cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
         var lat = ['А', 'B', 'V', 'G', 'D', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', 'IE', 'Y', 'Ь', 'E', 'IU', 'IA'];
 
         var indexOfCyrChar = cyr.indexOf(char.toUpperCase());
@@ -290,7 +303,7 @@ var IndexTree = function () {
         var wrongCyrCaps = ['F', '<', 'D', 'U', 'L', 'T', ':', 'P', 'B', 'Q', 'R', 'K', 'V', 'Y', 'J', 'G', 'H', 'C', 'N', 'E', 'A', '{', 'W', 'X', 'I', 'O', '}', 'S', 'M', '\"', '>', 'Z'];
         var wrongLat = ['Ф', 'И', 'М', 'П', 'В', 'У', 'ЯР', 'Я', 'Ш', 'Ш', 'Л', 'Д', 'Ь', 'Т', 'Щ', 'З', 'К', 'Ы', 'Е', 'Г', 'А', 'ЛР', 'ЕЫ', 'СР', 'ЫР', 'ЫРСР', 'ШЕ', 'Н', 'Ь', 'У', 'ШГ', 'ШФ'];
         var lat = ['А', 'B', 'V', 'G', 'D', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', 'IE', 'Y', 'Ь', 'E', 'IU', 'IA'];
-        var cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', ' К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+        var cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
 
         var index = -1;
         index = wrongCyr.indexOf(char);
@@ -308,10 +321,10 @@ var IndexTree = function () {
         return result;
     };
 
-    IndexTree.prototype.getIndicies = function getIndicies(string) {
+    IndexTree.prototype.getIndices = function getIndices(string) {
         var stringAsArray = string.split(''); //todo: fix for different cases
         var tree = this.tree;
-        function getIndiciesFor(fn) {
+        function getIndicesFor(fn) {
             var depth = 0;
             var subtree = tree;
             while (depth < stringAsArray.length) {
@@ -324,14 +337,14 @@ var IndexTree = function () {
                 }
             }
 
-            return subtree.indicies;
+            return subtree.indices;
         }
 
-        var indicies = getIndiciesFor(this._GOSTCyr2Lat);
-        var indicies2 = getIndiciesFor(this._wrongKeyboard);
+        var indices = getIndicesFor(this._GOSTCyr2Lat);
+        var indices2 = getIndicesFor(this._wrongKeyboard);
 
-        var composedIndicies = indicies.concat(indicies2);
-        return composedIndicies;
+        var composedIndices = indices.concat(indices2);
+        return composedIndices;
     };
 
     IndexTree.prototype._buildIndexTree = function _buildIndexTree() {
@@ -340,10 +353,10 @@ var IndexTree = function () {
             // sprout: {code: int, index: int}
             if (!branch.hasOwnProperty(sprout.code)) {
                 branch[sprout.code] = {
-                    indicies: [sprout.index]
+                    indices: [sprout.index]
                 };
-            } else if (branch[sprout.code].indicies.indexOf(sprout.index) < 0) {
-                branch[sprout.code].indicies.push(sprout.index);
+            } else if (branch[sprout.code].indices.indexOf(sprout.index) < 0) {
+                branch[sprout.code].indices.push(sprout.index);
             }
             return branch[sprout.code];
         }
@@ -353,7 +366,7 @@ var IndexTree = function () {
             var wrongCyrCaps = ['F', '<', 'D', 'U', 'L', 'T', ':', 'P', 'B', 'Q', 'R', 'K', 'V', 'Y', 'J', 'G', 'H', 'C', 'N', 'E', 'A', '{', 'W', 'X', 'I', 'O', '}', 'S', 'M', '\"', '>', 'Z'];
             var wrongLat = ['Ф', 'И', 'М', 'П', 'В', 'У', 'ЯР', 'Я', 'Ш', 'Ш', 'Л', 'Д', 'Ь', 'Т', 'Щ', 'З', 'К', 'Ы', 'Е', 'Г', 'А', 'ЛР', 'ЕЫ', 'СР', 'ЫР', 'ЫРСР', 'ШЕ', 'Н', 'Ь', 'У', 'ШГ', 'ШФ'];
             var lat = ['А', 'B', 'V', 'G', 'D', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', 'IE', 'Y', 'Ь', 'E', 'IU', 'IA'];
-            var cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', ' К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+            var cyr = ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
 
             var sproutCodes = [];
         }
@@ -440,6 +453,10 @@ var Seelect = function () {
         }
     };
 
+    Seelect.prototype.getSelectedValues = function getSelectedValues() {
+        return this.selected;
+    };
+
     Seelect.prototype.select = function select(value, el) {
         var _this = this;
 
@@ -514,7 +531,7 @@ var Seelect = function () {
             _this2.data.push(el);
         });
 
-        // building tree of indicies for data
+        // building tree of indices for data
         this.indexTree = new _indexTree2.default(this.data);
 
         if (this.settings.debug) {
@@ -562,7 +579,7 @@ var Seelect = function () {
         var cont = this.selectElement.parentNode.querySelector('.seelect-container .seelect-dd');
         var lis = cont.getElementsByTagName('li');
         for (var i = 0; i < lis.length; i++) {
-            if (this.indicies.indexOf(i) >= 0 || !this.indicies.length) {
+            if (this.indices.indexOf(i) >= 0 || !this.indices.length) {
                 lis[i].style.display = 'block';
             } else {
                 lis[i].style.display = 'none';
@@ -576,16 +593,21 @@ var Seelect = function () {
         var input = this.selectElement.parentNode.querySelector('.seelect-container .seelect-input');
 
         input.addEventListener('keyup', function (evt) {
+
+            if (evt.target.value === _this3.input) {
+                return false; // not changed
+            }
+
             _this3.inputValue = evt.target.value;
             if (_this3.inputValue === '') {
-                _this3.indicies = [];
+                _this3.indices = [];
             } else {
-                _this3.indicies = _this3.indexTree.getIndicies(_this3.inputValue);
+                _this3.indices = _this3.indexTree.getIndices(_this3.inputValue);
             }
 
             _this3._autocomplete();
 
-            if (_this3.settings.onNotFound && _this3.inputValue !== '' && _this3.indicies.length === 0) {
+            if (_this3.settings.onNotFound && _this3.inputValue !== '' && _this3.indices.length === 0) {
                 var ts = Date.now(); //todo: change on Promise, and cancel promise on new search request
                 _this3.settings.onNotFound(_this3, ts);
             }
