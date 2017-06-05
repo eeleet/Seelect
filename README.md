@@ -2,7 +2,7 @@
 
 - Yet another select component.
 - Written on pure ES6.
-- Suuports IE9+ and all latest browsers.
+- Supports IE9+ and all latest browsers.
 
 In developement, use at your own risk. Enhancement will be added, bugs will be fixed.
 
