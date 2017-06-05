@@ -1,31 +1,31 @@
 # Seelect
 
-Yet another select component.
-Written on pure ES6.
-Suuports IE9+ and all latest browsers.
+- Yet another select component.
+- Written on pure ES6.
+- Suuports IE9+ and all latest browsers.
 
 In developement, use at your own risk. Enhancement will be added, bugs will be fixed.
 
 ## Getting Started
 
 1. Download zip or clone this repo.
-2. Make sure you got latest nodejs (v6.9+) and npm (v4+) installed.
+2. Make sure you got latest node.js (v6.9+) and npm (v4+) installed.
 3. Go to the project folder and execute initially:
 
 ```
-npm install
+$ npm install
 ```
 to download all depedencies 
 
 ```
-npm start
+$ npm start
 ```
 to run local webpack dev server for the project. It is con figured at localhost port 80.
 
 4. If you need to bundle it, run
 
 ```
-npm run bundle
+$ npm run bundle
 ```
 
 ## Structure
