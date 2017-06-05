@@ -33,7 +33,7 @@ export default class Seelect {
                 this._enableAutocomplete();
             }
             this._attachEvents();
-            window.__SEELECT_INITED = true;
+            window.__SEELECT_INITED = true; //make global flag to show that at least one seelect is inited
         }
         catch(e) {
             console.error(e);
@@ -55,7 +55,7 @@ export default class Seelect {
         } else {
             this.selected = this.data.filter((obj) => { return obj.value == value;});
             this._updateSelected();
-            this.utils.iterateNoteList(this.dropdownElement.querySelectorAll('li'),(ele)=> {this.utils.removeClass(ele, 'selected'); })
+            this.utils.iterateNodeList(this.dropdownElement.querySelectorAll('li'),(ele)=> {this.utils.removeClass(ele, 'selected'); })
             this.utils.addClass(el, 'selected');
         }
     }
@@ -100,7 +100,7 @@ export default class Seelect {
 
     _collectData() {
         this.data = [];
-        this.utils.iterateNoteList(this.selectElement.querySelectorAll('option'), (opt) => {
+        this.utils.iterateNodeList(this.selectElement.querySelectorAll('option'), (opt) => {
             const el = {
                 value: opt.getAttribute('value'),
                 label: opt.getAttribute('label') || opt.textContent,
@@ -199,7 +199,7 @@ export default class Seelect {
 
             if(window.__SEELECT_INITED) {
                 let seelectsList = document.querySelectorAll('.seelect-container');
-                this.utils.iterateNoteList(seelectsList, (el) => {
+                this.utils.iterateNodeList(seelectsList, (el) => {
                     if(el !== this.containerElement) {
                         this.utils.removeClass(el, 'active');
                     }

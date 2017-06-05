@@ -51,7 +51,6 @@ body {
 .seelect-container > * {
     display: none;
 }
-
 .seelect-container::before {
     content: '';
     width: 0;
@@ -145,12 +144,10 @@ body {
     padding-left: 120px;
     padding-top: 10px;
 }
-
 .seelect-container .seelect-dd li.selected {
     background-color: #ddd;
     color: purple;
 }
-
 .seelect-container .seelect-dd li:hover {
     background-color: purple ;
     color: white;

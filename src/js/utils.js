@@ -5,7 +5,7 @@ class Utils {
 
     // use this method instead of es6 [...nodeList].forEach
     // which requires polyfill for IE
-    iterateNoteList(nodeList, fn) {
+    iterateNodeList(nodeList, fn) {
         for(let i = 0; i < nodeList.length; i++) {
             const node = nodeList[i];
             fn(node, i);

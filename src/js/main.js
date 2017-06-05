@@ -32,7 +32,7 @@ class App {
         document.querySelector('#login').style.display = 'none';
         document.querySelector('#seelects').style.display = 'block';
 
-        this.utils.iterateNoteList(document.querySelectorAll('.seelect'), (el, i) => {
+        this.utils.iterateNodeList(document.querySelectorAll('.seelect'), (el, i) => {
             const config = {element: el, uniqueKey: i, debug: true};
 
             if(el.id == 'withVKSearch') { // set vk search for specific seelect
