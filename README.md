@@ -1,6 +1,10 @@
 # Seelect
 
-Yet another select component
+Yet another select component.
+Written on pure ES6.
+Suuports IE9+ and all latest browsers.
+
+In developement, use at your own risk. Enhancement will be added, bugs will be fixed.
 
 ## Getting Started
 
@@ -24,10 +28,13 @@ to run local webpack dev server for the project. It is con figured at localhost 
 npm run bundle
 ```
 
+## Structure
+
+
 ## About (RUS)
 
 Данная библиотека реализует select/multiselect-компонент. 
-Реализован автокомплит без учета раскаладки и с поддержкой транслитерации. 
+Реализован автокомплит для русского и английского языков без учета раскаладки и с поддержкой транслитерации. 
 Возможно использование серверного поиска. 
 
 Для инициализации используются стандартные html-элементы select и data-атрибуты.
@@ -49,5 +56,7 @@ unique              |                           | unique token              | fa
 debug               | data-debug                | display debug             | false       | false
 isMultiselect       | multiselect               | enable multiselect        | false       | false
 disableAutocomplete | data-disable-autocomplete | disable autocomplete      | false       | false
-useIcons            | data-use-icons            | use icons                 | false       | false
+useIcons            | data-use-icons            | use icons *               | false       | false
 onNotFound          |                           | fn(select, timestamp)     | false       |
+
+Link to an icon image should be defined in data-icon attribute of OPTION tag.
