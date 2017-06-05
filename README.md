@@ -6,6 +6,10 @@
 
 In developement, use at your own risk. Enhancement will be added, bugs will be fixed.
 
+## Demo
+
+http://seelect.litmanovich.ru
+
 ## Getting Started
 
 1. Download zip or clone this repo.
@@ -20,7 +24,7 @@ to download all depedencies
 ```
 $ npm start
 ```
-to run local webpack dev server for the project. It is con figured at localhost port 80.
+to run local webpack dev server for the project. It is configured at localhost port 80.
 
 4. If you need to bundle it, run
 
