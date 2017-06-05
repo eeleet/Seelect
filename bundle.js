@@ -169,15 +169,7 @@ var App = function () {
             VK.Auth.login(function () {
                 _this.afterLogin();
             });
-            //window.location.href = 'https://oauth.vk.com/authorize?client_id=6057159&display=page&redirect_uri=http://' + window.location.host + '&scope=friends&response_type=token&v=5.64';
         });
-        /*
-        if(window.location.href.split('#access_token=').length === 2) { // user is logged in
-            this.afterLogin();
-        } else {
-            this.showLogin();
-        }
-        */
     };
 
     App.prototype.showLogin = function showLogin() {
@@ -208,7 +200,7 @@ var App = function () {
         setTimeout(function () {
             //cleaning lock token
             if (seelect.dataLockToken === ts) {
-                console.log('Opps! Data fetching timeout for token ' + seelect.dataLockToken);
+                console.log('Oops! Data fetching timeout for token ' + seelect.dataLockToken);
                 delete seelect.dataLockToken;
             }
         }, 30000);
@@ -434,6 +426,10 @@ var Seelect = function () {
         this.inputValue = '';
         this.selected = [];
 
+        this.dictionary = { //todo: make this configurable, would be useful for i18n or other cases
+            selectValue: 'Выберите значение'
+        };
+
         this.init();
     }
 
@@ -447,6 +443,7 @@ var Seelect = function () {
                 this._enableAutocomplete();
             }
             this._attachEvents();
+            window.__SEELECT_INITED = true;
         } catch (e) {
             console.error(e);
             console.log('Error initializing Seelect!');
@@ -500,6 +497,14 @@ var Seelect = function () {
         this._buildResults();
         if (ts) {
             delete this.dataLockToken;
+        }
+    };
+
+    Seelect.prototype._setPlaceholderVisibilty = function _setPlaceholderVisibilty() {
+        if (this.selected.length) {
+            this.placeholderElement.style.display = 'none';
+        } else {
+            this.placeholderElement.style.display = 'block';
         }
     };
 
@@ -573,6 +578,7 @@ var Seelect = function () {
         if (this.data.length !== 0) {
             this.dropdownElement.style.visibility = 'visible';
         }
+        this._setPlaceholderVisibilty();
     };
 
     Seelect.prototype._autocomplete = function _autocomplete() {
@@ -618,7 +624,20 @@ var Seelect = function () {
         var _this4 = this;
 
         this.containerElement.addEventListener('click', function (evt) {
+
+            if (window.__SEELECT_INITED) {
+                var seelectsList = document.querySelectorAll('.seelect-container');
+                _this4.utils.iterateNoteList(seelectsList, function (el) {
+                    if (el !== _this4.containerElement) {
+                        _this4.utils.removeClass(el, 'active');
+                    }
+                });
+            }
+
             _this4.utils.toggleClass(_this4.containerElement, 'active');
+            if (!_this4.settings.disableAutocomplete) {
+                _this4.inputElement.focus();
+            }
         });
 
         if (!this.settings.disableAutocomplete) {
@@ -670,6 +689,14 @@ var Seelect = function () {
         containerElement.appendChild(selectedElement);
         this.selectedElement = selectedElement;
 
+        var placeholder = document.createElement('span');
+        placeholder.className = 'seelect-placeholder';
+        placeholder.innerText = this.dictionary.selectValue;
+        this.placeholderElement = placeholder;
+        this.selectedElement.appendChild(this.placeholderElement);
+
+        this.selectedElement.appendChild(document.createElement('div'));
+
         if (!this.settings.disableAutocomplete) {
             var inputElement = document.createElement('input');
             inputElement.className = 'seelect-input';
@@ -695,10 +722,8 @@ var Seelect = function () {
 
     Seelect.prototype._updateSelected = function _updateSelected() {
         var cont = document.createElement('div');
-
-        while (this.selectedElement.lastChild) {
-            this.selectedElement.removeChild(this.selectedElement.lastChild);
-        }
+        var selectedValuesDiv = this.selectedElement.querySelector('div');
+        this.selectedElement.removeChild(selectedValuesDiv);
 
         this.selected.map(function (data) {
             var el = document.createElement('div');
@@ -707,6 +732,8 @@ var Seelect = function () {
             el.className = 'seelected-item';
             cont.appendChild(el);
         });
+
+        this._setPlaceholderVisibilty();
 
         this.selectedElement.appendChild(cont);
     };

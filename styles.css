@@ -51,6 +51,35 @@ body {
 .seelect-container > * {
     display: none;
 }
+
+.seelect-container::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 8px solid #bbb;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 5px solid transparent;
+    position: relative;
+    margin: 10px 5px 0 0;
+    display: block;
+    float: right;
+}
+.seelect-container:hover::before {
+    border-top: 8px solid #000;
+    border-bottom: 8px solid transparent;
+}
+.seelect-container.active::before {
+    border-top: 8px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid #bbb;
+    border-left: 5px solid transparent;
+    margin: 2px 5px 0 0;
+}
+.seelect-container.active:hover::before {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid #000;
+}
 .seelect-container.active > * {
     display: block;
 }
@@ -60,6 +89,10 @@ body {
     margin: 0 10px 0 0;
     min-height: 25px;
     height: auto;
+}
+.seelect-container .seelect-selected .seelect-placeholder {
+    padding: 4px 0px 0px 4px;
+    color: #bbb;
 }
 .seelect-container .seelect-selected > div{
     margin-right: 30px;

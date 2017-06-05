@@ -16,6 +16,10 @@ export default class Seelect {
         this.inputValue = '';
         this.selected = [];
 
+        this.dictionary = { //todo: make this configurable, would be useful for i18n or other cases
+            selectValue: 'Выберите значение'
+        }
+
         this.init();
     }
 
@@ -29,6 +33,7 @@ export default class Seelect {
                 this._enableAutocomplete();
             }
             this._attachEvents();
+            window.__SEELECT_INITED = true;
         }
         catch(e) {
             console.error(e);
@@ -71,6 +76,15 @@ export default class Seelect {
         this._buildResults();
         if(ts) {
             delete this.dataLockToken;
+        }
+    }
+
+    _setPlaceholderVisibilty() {
+        if(this.selected.length) {
+            this.placeholderElement.style.display = 'none';
+        }
+        else {
+            this.placeholderElement.style.display = 'block';
         }
     }
 
@@ -140,6 +154,7 @@ export default class Seelect {
         if(this.data.length !== 0) {
             this.dropdownElement.style.visibility = 'visible';
         }
+        this._setPlaceholderVisibilty();
     }
 
     _autocomplete() {
@@ -181,7 +196,20 @@ export default class Seelect {
 
     _attachEvents() {
         this.containerElement.addEventListener('click', (evt) => {
+
+            if(window.__SEELECT_INITED) {
+                let seelectsList = document.querySelectorAll('.seelect-container');
+                this.utils.iterateNoteList(seelectsList, (el) => {
+                    if(el !== this.containerElement) {
+                        this.utils.removeClass(el, 'active');
+                    }
+                })
+            }
+
             this.utils.toggleClass(this.containerElement, 'active');
+            if(!this.settings.disableAutocomplete) {
+                this.inputElement.focus();
+            }
         });
 
         if(!this.settings.disableAutocomplete) {
@@ -230,6 +258,14 @@ export default class Seelect {
         containerElement.appendChild(selectedElement);
         this.selectedElement = selectedElement;
 
+        let placeholder = document.createElement('span');
+        placeholder.className = 'seelect-placeholder';
+        placeholder.innerText = this.dictionary.selectValue;
+        this.placeholderElement = placeholder;
+        this.selectedElement.appendChild(this.placeholderElement);
+
+        this.selectedElement.appendChild(document.createElement('div'));
+
         if(!this.settings.disableAutocomplete) {
             let inputElement = document.createElement('input');
             inputElement.className = 'seelect-input';
@@ -257,10 +293,8 @@ export default class Seelect {
 
     _updateSelected() {
         let cont = document.createElement('div');
-
-        while (this.selectedElement.lastChild) {
-            this.selectedElement.removeChild(this.selectedElement.lastChild);
-        }
+        const selectedValuesDiv = this.selectedElement.querySelector('div');
+        this.selectedElement.removeChild(selectedValuesDiv)
 
         this.selected.map((data) => {
             let el = document.createElement('div');
@@ -269,6 +303,8 @@ export default class Seelect {
             el.className = 'seelected-item';
             cont.appendChild(el);
         })
+
+        this._setPlaceholderVisibilty();
 
         this.selectedElement.appendChild(cont);
     }

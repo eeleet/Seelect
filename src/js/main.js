@@ -21,15 +21,7 @@ class App {
             VK.Auth.login(() => {
                 this.afterLogin();
             })
-            //window.location.href = 'https://oauth.vk.com/authorize?client_id=6057159&display=page&redirect_uri=http://' + window.location.host + '&scope=friends&response_type=token&v=5.64';
         })
-        /*
-        if(window.location.href.split('#access_token=').length === 2) { // user is logged in
-            this.afterLogin();
-        } else {
-            this.showLogin();
-        }
-        */
     }
 
     showLogin() {
@@ -56,7 +48,7 @@ class App {
 
         setTimeout(() => { //cleaning lock token
             if(seelect.dataLockToken === ts) {
-                console.log(`Opps! Data fetching timeout for token ${seelect.dataLockToken}`);
+                console.log(`Oops! Data fetching timeout for token ${seelect.dataLockToken}`);
                 delete seelect.dataLockToken;
             }
         }, 30000);
