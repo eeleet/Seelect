@@ -88,7 +88,7 @@ var Utils = function () {
     // which requires polyfill for IE
 
 
-    Utils.prototype.iterateNoteList = function iterateNoteList(nodeList, fn) {
+    Utils.prototype.iterateNodeList = function iterateNodeList(nodeList, fn) {
         for (var i = 0; i < nodeList.length; i++) {
             var node = nodeList[i];
             fn(node, i);
@@ -182,7 +182,7 @@ var App = function () {
         document.querySelector('#login').style.display = 'none';
         document.querySelector('#seelects').style.display = 'block';
 
-        this.utils.iterateNoteList(document.querySelectorAll('.seelect'), function (el, i) {
+        this.utils.iterateNodeList(document.querySelectorAll('.seelect'), function (el, i) {
             var config = { element: el, uniqueKey: i, debug: true };
 
             if (el.id == 'withVKSearch') {
@@ -443,7 +443,7 @@ var Seelect = function () {
                 this._enableAutocomplete();
             }
             this._attachEvents();
-            window.__SEELECT_INITED = true;
+            window.__SEELECT_INITED = true; //make global flag to show that at least one seelect is inited
         } catch (e) {
             console.error(e);
             console.log('Error initializing Seelect!');
@@ -472,7 +472,7 @@ var Seelect = function () {
                 return obj.value == value;
             });
             this._updateSelected();
-            this.utils.iterateNoteList(this.dropdownElement.querySelectorAll('li'), function (ele) {
+            this.utils.iterateNodeList(this.dropdownElement.querySelectorAll('li'), function (ele) {
                 _this.utils.removeClass(ele, 'selected');
             });
             this.utils.addClass(el, 'selected');
@@ -522,7 +522,7 @@ var Seelect = function () {
         var _this2 = this;
 
         this.data = [];
-        this.utils.iterateNoteList(this.selectElement.querySelectorAll('option'), function (opt) {
+        this.utils.iterateNodeList(this.selectElement.querySelectorAll('option'), function (opt) {
             var el = {
                 value: opt.getAttribute('value'),
                 label: opt.getAttribute('label') || opt.textContent,
@@ -627,7 +627,7 @@ var Seelect = function () {
 
             if (window.__SEELECT_INITED) {
                 var seelectsList = document.querySelectorAll('.seelect-container');
-                _this4.utils.iterateNoteList(seelectsList, function (el) {
+                _this4.utils.iterateNodeList(seelectsList, function (el) {
                     if (el !== _this4.containerElement) {
                         _this4.utils.removeClass(el, 'active');
                     }
